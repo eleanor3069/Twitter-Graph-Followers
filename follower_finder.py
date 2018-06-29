@@ -36,7 +36,7 @@ api = twitter.Api(consumer_key=config.twitter_consumer_key,
 
 # get a list of all users 
 
-user_list = ["Yehuda Devir","fowlcomics", "catana_comics", "Lunarbaboon", "Explosm", \
+user_list = ["sarahcanderson", "fowlcomics", "catana_comics", "Lunarbaboon", "Explosm", \
 "yasmine_surovec", "PhilippaRice", "enzocomics", "PDLComics", "HannahHillam", "shenanigansen",\
  "Oatmeal", "LoadingArtist", "JimBenton", "gemmacorrell", "MrLovenstein", "xkcdComic","JimLee","skottieyoung","beckycloonan"]
 
