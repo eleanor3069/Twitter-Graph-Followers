@@ -4,7 +4,7 @@ import csv
 import time
 
 def save_follower_results(follower_list,screen_name):
-    with open(r'network_edge_test.csv', 'a') as f:
+    with open(r'ff_network_edge.csv', 'a') as f:
         writer = csv.writer(f)
         for followerID in follower_list:
             fields_to_write = [screen_name,followerID]
