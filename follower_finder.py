@@ -28,22 +28,20 @@ def getAllFollowersForUser(script_screen_name, api):
 
         time.sleep(60)
 
-api = twitter.Api(consumer_key=config.twitter_consumer_key,
-                      consumer_secret=config.twitter_consumer_secret,
-                      access_token_key=config.twitter_access_token,
-                      access_token_secret=config.twitter_access_token_secret,
-                      sleep_on_rate_limit=True)
+def main_function(user_list):  
 
-# get a list of all users 
+    api = twitter.Api(consumer_key=config.twitter_consumer_key,
+                        consumer_secret=config.twitter_consumer_secret,
+                        access_token_key=config.twitter_access_token,
+                        access_token_secret=config.twitter_access_token_secret,
+                        sleep_on_rate_limit=True)
 
-user_list = ["SarahCAndersen", "fowlcomics", "catana_comics", "Lunarbaboon", "Explosm", \
-"yasmine_surovec", "PhilippaRice", "enzocomics", "PDLComics", "HannahHillam", "shenanigansen",\
- "Oatmeal", "LoadingArtist", "JimBenton", "gemmacorrell", "MrLovenstein", "xkcdComic","JimLee","skottieyoung","beckycloonan"]
+    
 
-# for every user in the list, get all their followers
+    # for every user in the list, get all their followers
 
-for user in user_list:
-    getAllFollowersForUser(user,api)
+    for user in user_list:
+        getAllFollowersForUser(user,api)
 
-print("Done")
+    print("Done")
 

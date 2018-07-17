@@ -1,48 +1,31 @@
-import twitter
-import config
-import csv
-import time
+import follower_finder
+import groupnodes
+import Follower_Stats
 
-def save_sorted_follower_list(user_screen_name,input_list):
-    with open(r'network_edge.csv', 'a') as f:
-        writer = csv.writer(f)
-        for followerID in input_list:
-            fields_to_write = [user_screen_name,followerID]
-            writer.writerow(fields_to_write)
+# get a list of all users 
 
-api = twitter.Api(consumer_key=config.twitter_consumer_key,
-                      consumer_secret=config.twitter_consumer_secret,
-                      access_token_key=config.twitter_access_token,
-                      access_token_secret=config.twitter_access_token_secret,
-                      sleep_on_rate_limit=True)
-                      
+user_list = ["SarahCAndersen", "fowlcomics", "catana_comics", "Lunarbaboon", "Explosm", \
+    "yasmine_surovec", "PhilippaRice", "enzocomics", "PDLComics", "HannahHillam", "shenanigansen",\
+    "Oatmeal", "LoadingArtist", "JimBenton", "gemmacorrell", "MrLovenstein", "xkcdComic","JimLee","skottieyoung","beckycloonan"]
 
 
-#statuses = api.GetUserTimeline(screen_name='eleanorkuanchan')
-#print([s.text for s in statuses])
+# follower_finder takes in the argument of the screen names of a list of twitter users and creates an edge list of all of their followers
+# The function uses the twitter API to get follower data in the form of User IDs for each person on the list
+# The function outputs this list into the file: 'network_edge.csv'
 
-#results = api.GetSearch( raw_query="q=twitter%20&result_type=recent&since=2014-07-19&count=5")
+follower_finder.main_function(user_list)
 
-#friend_result = api.GetFriends(screen_name='eleanorkuanchan')
+# Group nodes takes in a very large edge list that was created from the follower_finder main function, and groups similar nodes together.
+# It opens the file 'network_edge.csv' and outputs the file 'output_network.csv'
+# It takes nodes that have the same sources and combines them into one single node
+# The number of followers information is perserved by assigning each edge a weight according to the number of followers
+# represented by that connection.
 
-#friend_result.sort(key=lambda x: x.followers_count, reverse=True)
+groupnodes.main_func()
 
-#save_sorted_friend_list(friend_result)
+# Follower stats takes in the user list, and prints an output to the terminal of the number of shared followers between every user
+# The output is in the form of a 2D table, each cell represents the value:
+# ( number of shared followers between i and j / number of followers of i) where i is the user in the row, and j is the 
+# user in the column of that table. 
 
-
-print("starting search")
-search_results = api.GetSearch( raw_query="q=coke%20&result_type=popular&l=en&count=5")
-
-for tweet in search_results:
-    user_screen_name = tweet.user.screen_name
-    print("getting {} follower".format(user_screen_name))
-    user_follower_result = api.GetFollowerIDs(screen_name=user_screen_name,total_count=50000)
-    print("done getting users follower")
-    
-    save_sorted_follower_list(user_screen_name,user_follower_result)
-
-    print("waiting a minute next call")
-    time.sleep(60)
-
-
-print("DONE")
+Follower_Stats.main_function(user_list)
